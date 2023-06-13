@@ -19,7 +19,9 @@ from .views import (ProductList, ProductDetail, ProfileList, ProfileDetail,
                      CatsSerializer, FishSerializer, AccessoriesFishList,
                     AccessoriesFishDetail, FoodFishList, FoodFishDetail, BridList,
                     BridDetail, AccessoriesBridList, AccessoriesBridDetail , WetFoodCatsSerializer ,
-                    WetFoodCatsDetail ,product_search ,searchList ,searchDetail)
+                    WetFoodCatsDetail ,product_search ,
+                    searchList ,searchDetail,FoodBridlist,
+                    FoodBridDetail,Dogslist,DogsDetail)
 
 urlpatterns = [
     path('',views.home,name = 'home'),
@@ -38,7 +40,7 @@ urlpatterns = [
     path('update_item/', views.updateItem, name="update_item"),
 	path('process_order/', views.processOrder, name="process_order"),
     path('doctor-sign',views.Doctor_signUP,name='doctor-sign' ),
-    path('search_products',views.search_products,name='search_products'),
+    # path('search_products',views.search_products,name='search_products'),
     path('product_detail',views.product_detail,name='product_detail'),
     path('products/', ProductList.as_view(), name='product_list'),
     path('products/<int:pk>/', ProductDetail.as_view(), name='product_detail'),
@@ -103,5 +105,9 @@ urlpatterns = [
     path('food-fish/', FoodFishList.as_view(), name='food_fish_list'),
     path('food-fish/<int:pk>/', FoodFishDetail.as_view(), name='food_fish_detail'),
     path('search/', product_search, name='product_search_api'),
-    path('search_api',views.search_api)
+    path('search_api',views.search_api, name='search_api'),
+    path('FoodBridlist',FoodBridlist.as_view(),name='FoodBridlist'),
+    path('FoodBridDetail',FoodBridDetail.as_view(),name='FoodBridDetail'),
+    path('Dogslist',Dogslist.as_view(),name='Dogslist'),
+    path('DogsDetail',DogsDetail.as_view(),name='DogsDetail'),
 ]

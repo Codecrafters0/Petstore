@@ -17,7 +17,7 @@ from .serializers import ProductSerializer, ProfileSerializer, ShippingAddressSe
     WetFoodDogsSerializer, CatsSerializer, AccessoriesCatsSerializer, BedsCatsSerializer, FoodCatsSerializer, \
     FleaTicksCatsSerializer, GroomingcatsSerializer, ToyscatsSerializer, TreatsBiscuitsCatsSerializer, \
     WetFoodCatsSerializer, FishSerializer, AccessoriesFishSerializer, FoodFishSerializer, BridSerializer, \
-    AccessoriesBridSerializer
+    AccessoriesBridSerializer,FoodBridSerializer,DogsSerializer
 from .models import Profile , Product ,Photo , Order , \
  Product, Profile, ShippingAddress, OrderItem, Order, search, \
     DoctorVent, Vent_Photo, Photo, Dogs, AccessoriesDogs, BedsDogs, FoodDogs, FleaTicksDogs, GroomingDogs,\
@@ -46,7 +46,6 @@ def IS_discount(xxx):
 
 # Create your views here.
 def product_types(request,types):
-    return HttpResponse('tet')
     products = Product.objects.filter(product_type = types)
     user = request.user
     custom = user.groups.filter(name='customer').exists() 
@@ -359,22 +358,22 @@ def checkout(request):
     context = {'items':items, 'order':order, 'cartItems':cartItems , 'customer':custom }
     return render(request,'checkout.html',context)
 
-def search_products(request):
-    if request.method == 'GET':
-        query = request.GET.get('q')
-        if query:
+# def search_products(request):
+#     if request.method == 'GET':
+#         query = request.GET.get('q')
+#         if query:
             
-            products = Product.objects.filter(product_name__icontains=query)
+#             products = Product.objects.filter(product_name__icontains=query)
 
 
-            return render(request, 'product_list.html', {
-                'products': products
-            })
-        else:
-            return JsonResponse({
-                'message':'failed to load',
-                'status':500
-            }, safe=False)
+#             return render(request, 'product_list.html', {
+#                 'products': products
+#             })
+#         else:
+#             return JsonResponse({
+#                 'message':'failed to load',
+#                 'status':500
+#             }, safe=False)
 
 
 @api_view(['GET'])
@@ -667,3 +666,20 @@ class AccessoriesBridList(generics.ListCreateAPIView):
 class AccessoriesBridDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = AccessoriesBrid.objects.all()
     serializer_class = AccessoriesBridSerializer
+
+class FoodBridlist(generics.ListCreateAPIView):
+    queryset = FoodBrid.objects.all()
+    serializer_class = FoodBridSerializer
+        
+class FoodBridDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoodBrid.objects.all()
+    serializer_class = FoodBridSerializer
+
+class Dogslist(generics.ListCreateAPIView):
+    queryset = Dogs.objects.all()
+    serializer_class = DogsSerializer
+
+class DogsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dogs.objects.all()
+    serializer_class = DogsSerializer
+            
